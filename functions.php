@@ -61,7 +61,26 @@ function first_logo_image_customizar_register($wp_customize)
             'center_menu' => 'Center Menu',
         )
     ));
-};
+
+
+    // Footer option
+    $wp_customize->add_section('first_footer_option', array(
+        'title' => __('Footer Position Option', 'first-theme'),
+        'description' => 'If you intersted to update your footer settings, you can do it here.'
+    ));
+
+    $wp_customize->add_setting('footer_copyright_section', array(
+        'default' => '&copy; Copyright 2025 | DeveloperDolon'
+    ));
+
+    $wp_customize->add_control('footer_copyright_section', array(
+        'label' => 'Copyright Text',
+        'description' => 'If need you can update copyright text from here.',
+        'setting' => 'footer_copyright_section',
+        'section' => 'first_footer_option'
+    ));
+}
+;
 
 
 function first_theme_google_fonts()
@@ -79,3 +98,17 @@ add_action('customize_register', 'first_logo_image_customizar_register');
 
 // wordpress menu register
 register_nav_menu('primay', __('Primary Manu', 'first-theme'));
+
+
+// walker menu properties
+function first_theme_nav_description($item_output, $item, $args)
+{
+    if (!empty($item->description)) {
+        $item_output = str_replace($args->link_after . '</a>', '<span class=""walker_nav>' . $item->description . '</span>' . $args->link_after . '</a>', $item_output);
+    }
+
+    return $item_output;
+}
+
+add_filter('walker_nav_menu_start_el', 'first_theme_nav_description', 10, 3);
+
