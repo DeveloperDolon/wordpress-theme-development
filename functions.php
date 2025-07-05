@@ -38,8 +38,30 @@ function first_logo_image_customizar_register($wp_customize)
         'setting' => 'logo_setting',
         'section' => 'first_header_area'
     )));
-}
-;
+
+    // Menu positon option
+    $wp_customize->add_section('first_menu_option', array(
+        'title' => __('Menu Position Option', 'first-theme'),
+        'description' => 'If you intersted to update your nav menu, you can do it here.'
+    ));
+
+    $wp_customize->add_setting('menu_option_setting', array(
+        'default' => 'right_menu'
+    ));
+
+    $wp_customize->add_control('menu_option_setting', array(
+        'label' => 'Menu Positoin Option',
+        'description' => 'Select your menu position',
+        'setting' => 'menu_option_setting',
+        'section' => 'first_menu_option',
+        'type' => 'radio',
+        'choices' => array(
+            'left_menu' => 'Left Menu',
+            'right_menu' => 'Right Menu',
+            'center_menu' => 'Center Menu',
+        )
+    ));
+};
 
 
 function first_theme_google_fonts()
@@ -56,4 +78,4 @@ add_action('wp_enqueue_scripts', 'first_theme_google_fonts');
 add_action('customize_register', 'first_logo_image_customizar_register');
 
 // wordpress menu register
-register_nav_menu( 'primay', __('Primary Manu', 'first-theme'));
+register_nav_menu('primay', __('Primary Manu', 'first-theme'));
